@@ -1,12 +1,12 @@
 import React from "react";
 
-function DashboardPage() {
+const DashboardPage = () => {
   return (
     <div>
-      <h1>Dashboard</h1>
-      <p>Track your events, reviews, and recommendations.</p>
+      <h2>Your Dashboard</h2>
+      <p>No booked Events!</p>
     </div>
   );
-}
+};
 
 export default DashboardPage;

@@ -1,21 +1,32 @@
 import React from "react";
-import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
+import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
+import GlobalStyles from './GlobalStyles';
+
+
 import HomePage from "./pages/HomePage";
-import EventsPage from "./pages/EventsPage";
-import ReviewsPage from "./pages/ReviewsPage";
+import EventDetailsPage from "./pages/EventDetailsPage";
+import ReviewPage from "./pages/ReviewPage";
 import DashboardPage from "./pages/DashboardPage";
-import NotFoundPage from "./pages/NotFoundPage";
+import CalendarPage from "./pages/CalendarPage";
+import AdminPage from "./pages/AdminPage";
+import Header from "./components/Header";
+import Footer from "./components/Footer";
+
 
 function App() {
   return (
     <Router>
+      <GlobalStyles />
+      <Header />
       <Routes>
         <Route path="/" element={<HomePage />} />
-        <Route path="/events" element={<EventsPage />} />
-        <Route path="/reviews" element={<ReviewsPage />} />
+        <Route path="/event/:id" element={<EventDetailsPage />} />
+        <Route path="/review" element={<ReviewPage />} />
         <Route path="/dashboard" element={<DashboardPage />} />
-        <Route path="*" element={<NotFoundPage />} />
+        <Route path="/calendar" element={<CalendarPage />} />
+        <Route path="/admin" element={<AdminPage />} />
       </Routes>
+      <Footer />
     </Router>
   );
 }

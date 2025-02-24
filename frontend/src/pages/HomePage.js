@@ -1,13 +1,18 @@
 import React from "react";
+import styled from "styled-components";
 
-function HomePage() {
+const Container = styled.div`
+  padding: 2rem;
+  text-align: center;
+`;
+
+const HomePage = () => {
   return (
-    <div>
-      <h1>Welcome to AI-Powered Event Review Platform</h1>
-      <p>This is where users can review events and get AI-driven insights!</p>
-    </div>
+    <Container>
+      <h1>🎉 Welcome to AI-Powered Event Reviews</h1>
+      <p>Discover events and see AI-driven insights from user reviews.</p>
+    </Container>
   );
-}
+};
 
 export default HomePage;
-

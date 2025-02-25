@@ -1,26 +1,27 @@
-import React from "react";
-import { Link } from "react-router-dom";
-import styled from "styled-components";
+import { Navbar, Nav, Container } from 'react-bootstrap';
+import { FaBrain } from 'react-icons/fa'; // Importing a brain icon
+import { Link } from 'react-router-dom'; // Import Link from react-router-dom
 
-const Nav = styled.nav`
-  background: #007bff;
-  padding: 1rem;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  color: white;
-`;
 
-const Header = () => {
+function Header() {
   return (
-    <Nav>
-      <h2>🎉 AI Event Reviews</h2>
-      <div>
-        <Link to="/">Home</Link> | <Link to="/dashboard">Dashboard</Link> |{" "}
-        <Link to="/calendar">Calendar</Link> | <Link to="/admin">Admin</Link>
-      </div>
-    </Nav>
+    <Navbar bg="dark" variant="dark" expand="lg">
+      <Container>
+        <Navbar.Brand as={Link} to="/">
+          <FaBrain style={{ marginRight: '10px' }} /> {/* Icon added here */}
+          AI Events
+        </Navbar.Brand>
+        <Navbar.Toggle aria-controls="basic-navbar-nav" />
+        <Navbar.Collapse id="basic-navbar-nav">
+          <Nav className="ms-auto">
+            <Nav.Link as={Link} to="/" style={{ color: 'white' }}>Home</Nav.Link> {/* Same color as AI Events */}
+            <Nav.Link as={Link} to="/events" style={{ color: 'white' }}>Events</Nav.Link>
+            <Nav.Link as={Link} to="/reviews" style={{ color: 'white' }}>Reviews</Nav.Link>
+          </Nav>
+        </Navbar.Collapse>
+      </Container>
+    </Navbar>
   );
-};
+}
 
 export default Header;

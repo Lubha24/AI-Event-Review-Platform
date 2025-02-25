@@ -1,6 +1,8 @@
 import React from "react";
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import GlobalStyles from './GlobalStyles';
+import 'bootstrap/dist/css/bootstrap.min.css';
+
 
 
 import HomePage from "./pages/HomePage";

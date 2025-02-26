@@ -1,84 +1,83 @@
 import React from "react";
+import { Container, Button, Form } from "react-bootstrap";
 import styled from "styled-components";
+import { useNavigate } from "react-router-dom";
 
-// Styled components for the layout
-const PageContainer = styled.div`
-  padding: 2rem;
-  text-align: center;
-`;
-
-const FlexContainer = styled.div`
+// Styled components
+const HeroSection = styled.div`
+  background-image: url("https://source.unsplash.com/1600x900/?concert,party,event");
+  background-position: center;
+  background-size: cover;
+  background-repeat: no-repeat;
+  height: 60vh;
   display: flex;
-  justify-content: space-between; // Space out the containers evenly
-  gap: 1rem; // Add spacing between the containers
-  margin-top: 2rem;
-`;
-
-const Card = styled.div`
-  flex: 1; // Each container takes equal space
-  border: 1px solid #ccc; // Optional: Add a border for visual separation
-  border-radius: 8px; // Optional: Rounded corners
-  padding: 1rem;
+  align-items: center;
+  justify-content: center;
   text-align: center;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); // Optional: Add a shadow for depth
+  color: white;
+  position: relative;
+  
+  &::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5); /* Dark overlay */
+  }
+
+  .hero-content {
+    position: relative;
+    z-index: 2;
+  }
 `;
 
-const Image = styled.img`
-  width: 100%; // Make the image responsive
-  height: auto;
-  border-radius: 8px; // Optional: Rounded corners for the image
+
+const SearchBar = styled(Form.Control)`
+  width: 50%;
+  margin: 1rem auto;
+  text-align: center;
+  border-radius: 50px;
+  padding: 10px 20px;
 `;
 
-const FigCaption = styled.figcaption`
-  margin-top: 0.5rem;
-  font-style: italic;
-  color: #555;
+const CTAButton = styled(Button)`
+  background-color: #47A1C4;
+  border: none;
+  padding: 10px 20px;
+  font-size: 1.2rem;
+  border-radius: 50px;
+  transition: 0.3s;
+  
+  &:hover {
+    background-color: #27568B;
+  }
 `;
 
 const HomePage = () => {
+  const navigate = useNavigate(); // For navigating to events page
+
   return (
-    <PageContainer>
-      <h1>🎉 Welcome to our events site</h1>
-      <p>
-        Discover amazing events and get the inside scoop from real attendees. We’ll help you find the best experiences,
-        so you know exactly what to expect and how to make the most of your time!
-      </p>
+    <Container fluid>
+      {/* Hero Section */}
+      <HeroSection>
+        <div className="hero-content">
+          <h1>🎉 Discover Amazing Events!</h1>
+          <p>Find the best experiences and plan your next adventure</p>
+          
+          {/* Search Bar */}
+          <Form>
+            <SearchBar type="text" placeholder="Search for events..." />
+          </Form>
 
-      {/* Flexbox container for the three cards */}
-      <FlexContainer>
-        {/* Card 1 */}
-        <Card>
-          <Image
-            src="https://images.unsplash.com/photo-1524368535928-5b5e00ddc76b?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80"
-          />
-          <h3>Music Festival</h3>
-          <p>Join us for an exciting music festival filled with fun and learning!</p>
-          <FigCaption>Fig. 1 - Music Festival</FigCaption>
-        </Card>
-
-        {/* Card 2 */}
-        <Card>
-          <Image
-            src="https://images.unsplash.com/photo-1527529482837-4698179dc6ce?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80" // Image 2
-            alt="Woman at Event"
-          />
-          <h3>Networking Event</h3>
-          <p>Don't miss out on this amazing opportunity to network and grow!</p>
-          <FigCaption>Fig. 2 - Networking Event</FigCaption>
-        </Card>
-
-        {/* Card 3 */}
-        <Card>
-          <Image
-            src="https://media.istockphoto.com/id/1785808259/photo/networking-opportunities.jpg?s=1024x1024&w=is&k=20&c=hmtD9mMIwo4ZDewcy6H2JmcQ6L1XElmNSHztwNkfzuw=" // Image 3
-            alt="Networking Opportunities"
-          />
-          <h3>Community Gathering</h3>
-          <p>Experience the best of what our community has to offer!</p>
-          <FigCaption>Fig. 3 - Community Gathering</FigCaption>
-        </Card>
-      </FlexContainer>
-    </PageContainer>
+          {/* CTA Button */}
+          <CTAButton onClick={() => navigate("/events")}>
+            Explore Events
+          </CTAButton>
+        </div>
+      </HeroSection>
+    </Container>
   );
 };
 

@@ -1,0 +1,39 @@
+/* Custom styles for react-calendar */
+.react-calendar {
+    background-color: #ffffff; /* Background color of the calendar */
+    border: 1px solid #ddd; /* Border around the calendar */
+    border-radius: 8px; /* Rounded corners */
+    padding: 1rem;
+    font-family: Arial, sans-serif;
+  }
+  
+  /* Style for the weekdays (Mon, Tue, Wed, etc.) */
+  .react-calendar__month-view__weekdays {
+    color: #333; /* Font color for weekdays */
+    font-weight: bold;
+    text-transform: uppercase;
+  }
+  
+  /* Style for the individual days */
+  .react-calendar__tile {
+    color: #333; /* Default font color for days */
+    padding: 0.75rem;
+    border-radius: 4px;
+  }
+  
+  /* Style for the mid-week days (e.g., Tue, Wed, Thu) */
+  .react-calendar__month-view__days__day--weekend {
+    color: #007bff; /* Change this to your desired color for mid-week days */
+  }
+  
+  /* Style for the selected day */
+  .react-calendar__tile--active {
+    background-color: #007bff; /* Background color for the selected day */
+    color: #fff; /* Font color for the selected day */
+  }
+  
+  /* Style for the current day */
+  .react-calendar__tile--now {
+    background-color: #ffc107; /* Background color for the current day */
+    color: #333; /* Font color for the current day */
+  }

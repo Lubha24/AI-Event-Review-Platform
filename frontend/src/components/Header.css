@@ -1,0 +1,6 @@
+/* Custom hover effect for Nav.Link */
+.navbar-dark .navbar-nav .nav-link:hover {
+    color: #61dafb !important; /* Change to your desired hover color */
+  }
+
+  /*color: #61dafb;*/

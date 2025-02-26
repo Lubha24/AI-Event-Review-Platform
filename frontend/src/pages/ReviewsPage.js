@@ -1,9 +1,10 @@
-import React from "react";
+import React, { useState } from "react";
 import { Container, Card, ListGroup, Badge } from "react-bootstrap";
+import ReviewForm from "../components/ReviewForm"; // Import the ReviewForm component
 
 const ReviewsPage = () => {
   // Sample reviews data
-  const reviews = [
+  const [reviews, setReviews] = useState([
     {
       id: 1,
       user: "John Doe",
@@ -32,7 +33,7 @@ const ReviewsPage = () => {
       review: "Absolutely loved it! Can't wait for the next one.",
       sentiment: "Positive", // AI sentiment analysis result
     },
-  ];
+  ]);
 
   // Function to render star ratings
   const renderStars = (rating) => {
@@ -53,10 +54,27 @@ const ReviewsPage = () => {
     }
   };
 
+  // Function to handle new review submission
+  const handleNewReview = (newReview) => {
+    const review = {
+      id: Date.now(), // Unique ID for the review
+      user: "Anonymous", // Default user name
+      rating: newReview.rating,
+      review: newReview.review,
+      sentiment: "Neutral", // Default sentiment (can be updated with AI analysis)
+    };
+    setReviews([...reviews, review]); // Add the new review to the list
+  };
+
   return (
     <Container className="my-5">
       <h2 className="text-center mb-4">📝 Recent Reviews from Attendees</h2>
-      <Card>
+
+      {/* Review Form */}
+      <ReviewForm onSubmit={handleNewReview} />
+
+      {/* Reviews List */}
+      <Card className="mt-4">
         <Card.Body>
           <ListGroup variant="flush">
             {reviews.map((review) => (

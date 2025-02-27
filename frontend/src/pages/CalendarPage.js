@@ -16,7 +16,7 @@ const CalendarPage = () => {
   // Function to save event to the backend
   const saveEventToDatabase = async (event) => {
     try {
-      const response = await fetch("/api/events", {
+      const response = await fetch("http://localhost:5000/events", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

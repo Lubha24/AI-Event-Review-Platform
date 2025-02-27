@@ -7,20 +7,51 @@ import "./Calendar.css"; // Import custom CSS for styling
 const CalendarPage = () => {
   const [date, setDate] = useState(new Date());
   const [events, setEvents] = useState([]); // Store events
-  const [newEvent, setNewEvent] = useState(""); // Input for new event
+  const [newEvent, setNewEvent] = useState({
+    name: "",
+    location: "",
+    description: "",
+  }); // State for the new event form
+
+  // Function to save event to the backend
+  const saveEventToDatabase = async (event) => {
+    try {
+      const response = await fetch("/api/events", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(event),
+      });
+      const data = await response.json();
+      console.log("Event saved:", data);
+    } catch (error) {
+      console.error("Error saving event:", error);
+    }
+  };
 
   // Add a new event for the selected date
-  const addEvent = () => {
-    if (newEvent.trim() === "") return; // Prevent empty events
+  const addEvent = async () => {
+    if (!newEvent.name || !newEvent.location || !newEvent.description) {
+      alert("Please fill in all fields.");
+      return;
+    }
 
     const event = {
       id: Date.now(), // Unique ID for the event
-      date: date.toDateString(), // Store the date as a string
-      description: newEvent, // Event description
+      name: newEvent.name,
+      date: date.toISOString().split("T")[0], // Store the date in YYYY-MM-DD format
+      location: newEvent.location,
+      description: newEvent.description,
+      created_at: new Date().toISOString(), // Current timestamp
     };
 
-    setEvents([...events, event]); // Add the new event
-    setNewEvent(""); // Clear the input
+    // Save the event to the backend
+    await saveEventToDatabase(event);
+
+    // Add the new event to the local state
+    setEvents([...events, event]);
+    setNewEvent({ name: "", location: "", description: "" }); // Clear the form
   };
 
   // Delete an event by ID
@@ -30,7 +61,7 @@ const CalendarPage = () => {
 
   // Filter events for the selected date
   const filteredEvents = events.filter(
-    (event) => event.date === date.toDateString()
+    (event) => event.date === date.toISOString().split("T")[0]
   );
 
   return (
@@ -54,7 +85,11 @@ const CalendarPage = () => {
                       key={event.id}
                       className="d-flex justify-content-between align-items-center"
                     >
-                      {event.description}
+                      <div>
+                        <h5>{event.name}</h5>
+                        <p>{event.description}</p>
+                        <small>Location: {event.location}</small>
+                      </div>
                       <Button
                         variant="danger"
                         size="sm"
@@ -71,17 +106,46 @@ const CalendarPage = () => {
 
               {/* Add Event Form */}
               <Form className="mt-4">
-                <Form.Group controlId="eventInput">
+                <Form.Group className="mb-3" controlId="eventName">
+                  <Form.Label>Event Name</Form.Label>
                   <Form.Control
                     type="text"
-                    placeholder="Add a new event"
-                    value={newEvent}
-                    onChange={(e) => setNewEvent(e.target.value)}
+                    placeholder="Enter event name"
+                    value={newEvent.name}
+                    onChange={(e) =>
+                      setNewEvent({ ...newEvent, name: e.target.value })
+                    }
                   />
                 </Form.Group>
+
+                <Form.Group className="mb-3" controlId="eventLocation">
+                  <Form.Label>Location</Form.Label>
+                  <Form.Control
+                    type="text"
+                    placeholder="Enter event location"
+                    value={newEvent.location}
+                    onChange={(e) =>
+                      setNewEvent({ ...newEvent, location: e.target.value })
+                    }
+                  />
+                </Form.Group>
+
+                <Form.Group className="mb-3" controlId="eventDescription">
+                  <Form.Label>Description</Form.Label>
+                  <Form.Control
+                    as="textarea"
+                    rows={3}
+                    placeholder="Enter event description"
+                    value={newEvent.description}
+                    onChange={(e) =>
+                      setNewEvent({ ...newEvent, description: e.target.value })
+                    }
+                  />
+                </Form.Group>
+
                 <Button
                   variant="primary"
-                  className="mt-2 w-100"
+                  className="w-100"
                   onClick={addEvent}
                 >
                   Add Event

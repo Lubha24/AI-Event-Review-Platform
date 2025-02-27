@@ -12,7 +12,7 @@ const FooterContainer = styled.footer`
 `;
 
 const Footer = () => {
-  return <FooterContainer>© 2025 AI Event Review Platform</FooterContainer>;
+  return <FooterContainer>© 2025 City Events</FooterContainer>;
 };
 
 export default Footer;

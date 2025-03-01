@@ -11,7 +11,7 @@ const CalendarPage = () => {
     name: "",
     location: "",
     description: "",
-  }); // State for the new event form
+  });
 
   // Function to save event to the backend
   const saveEventToDatabase = async (event) => {
@@ -23,8 +23,8 @@ const CalendarPage = () => {
         },
         body: JSON.stringify(event),
       });
-      const data = await response.json();
-      console.log("Event saved:", data);
+
+      return await response.json(); // Return the response but don't log it
     } catch (error) {
       console.error("Error saving event:", error);
     }
@@ -38,20 +38,19 @@ const CalendarPage = () => {
     }
 
     const event = {
-      id: Date.now(), // Unique ID for the event
       name: newEvent.name,
       date: date.toISOString().split("T")[0], // Store the date in YYYY-MM-DD format
       location: newEvent.location,
       description: newEvent.description,
-      created_at: new Date().toISOString(), // Current timestamp
+      created_at: new Date().toISOString(),
     };
 
-    // Save the event to the backend
-    await saveEventToDatabase(event);
+    const savedEvent = await saveEventToDatabase(event);
 
-    // Add the new event to the local state
-    setEvents([...events, event]);
-    setNewEvent({ name: "", location: "", description: "" }); // Clear the form
+    if (savedEvent) {
+      setEvents([...events, savedEvent]); // Update state with new event
+      setNewEvent({ name: "", location: "", description: "" }); // Clear the form
+    }
   };
 
   // Delete an event by ID
@@ -143,11 +142,7 @@ const CalendarPage = () => {
                   />
                 </Form.Group>
 
-                <Button
-                  variant="primary"
-                  className="w-100"
-                  onClick={addEvent}
-                >
+                <Button variant="primary" className="w-100" onClick={addEvent}>
                   Add Event
                 </Button>
               </Form>

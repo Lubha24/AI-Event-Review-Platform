@@ -1,0 +1,84 @@
+/* Center the login card vertically and horizontally */
+.login-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 100vh;
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat; /* Ensure the background image doesn't repeat */
+  }
+  
+  /* Style the login card */
+  .login-card {
+    padding: 2rem;
+    background-color: rgba(255, 255, 255, 0.9); /* Semi-transparent white background */
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Add a subtle shadow */
+  }
+  
+  /* Style the form inputs */
+  .form-control {
+    border-radius: 5px;
+    border: 1px solid #ced4da;
+    padding: 0.75rem 1rem;
+  }
+  
+  /* Style the login button */
+  .btn-primary {
+    width: 100%;
+    padding: 0.75rem;
+    border-radius: 5px;
+    font-size: 1rem;
+    font-weight: 600;
+    background-color: #007bff; /* Bootstrap primary color */
+    border: none;
+  }
+  
+  .btn-primary:hover {
+    background-color: #0056b3; /* Darker shade on hover */
+  }
+  
+  /* Style the social proof section */
+  .social-proof {
+    margin-top: 1.5rem;
+    text-align: center;
+  }
+  
+  .social-proof p {
+    font-size: 1rem;
+    color: #6c757d; /* Bootstrap secondary text color */
+  }
+  
+  /* Style the logos */
+  .logo-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 1rem; /* Add space between logos */
+  }
+  
+  .logo-container img {
+    height: 50px;
+    transition: transform 0.3s ease; /* Smooth hover effect */
+  }
+  
+  .logo-container img:hover {
+    transform: scale(1.1); /* Slightly enlarge the image on hover */
+  }
+  
+  /* Style the call-to-action links */
+  .cta-links {
+    margin-top: 1.5rem;
+    text-align: center;
+  }
+  
+  .cta-links a {
+    color: #007bff; /* Bootstrap primary color */
+    text-decoration: none;
+    font-weight: 500;
+  }
+  
+  .cta-links a:hover {
+    text-decoration: underline; /* Underline on hover */
+  }

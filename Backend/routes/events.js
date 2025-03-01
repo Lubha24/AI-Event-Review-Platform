@@ -13,13 +13,8 @@ router.post("/", async (req, res) => {
       [name, date, location, description, new Date()]
     );
 
-    // Fetch the newly created event
-    const [event] = await db.query("SELECT * FROM events WHERE id = ?", [
-      result.insertId,
-    ]);
-
-    console.log("Event saved:", event[0]);
-    res.status(201).json(event[0]); // Return the saved event
+    // Instead of fetching and returning the full event, return a success message
+    res.status(201).json({ message: "Event added successfully", eventId: result.insertId });
   } catch (error) {
     console.error("Error saving event:", error);
     res.status(500).json({ error: "Failed to save event" });
@@ -39,3 +34,4 @@ router.get("/", async (req, res) => {
 });
 
 module.exports = router;
+

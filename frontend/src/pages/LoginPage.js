@@ -16,7 +16,7 @@ const LoginPage = () => {
   const navigate = useNavigate();
 
   // Handle form submission
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
 
     // Basic validation
@@ -25,13 +25,29 @@ const LoginPage = () => {
       return;
     }
 
-    // Simulate login (replace with actual authentication logic)
-    if (email === "user@example.com" && password === "password") {
-      setError("");
-      alert("Login successful!");
-      navigate("/"); // Redirect to home page after login
-    } else {
-      setError("Invalid email or password.");
+    try {
+      // Send login request to the backend
+      const response = await fetch("http://localhost:5000/auth/login", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ email, password }),
+      });
+
+      const data = await response.json();
+
+      if (response.ok) {
+        // Login successful
+        setError("");
+        alert("Login successful!");
+        navigate("/"); // Redirect to home page after login
+      } else {
+        // Login failed
+        setError(data.message || "Invalid email or password.");
+      }
+    } catch (err) {
+      setError("An error occurred. Please try again later.");
     }
   };
 
@@ -97,7 +113,7 @@ const LoginPage = () => {
                 {/* Call-to-Action */}
                 <div className="cta-links">
                   <p>
-                  Don't have an account? <Link to="/signup">Sign Up</Link>
+                    Don't have an account? <Link to="/signup">Sign Up</Link>
                   </p>
                   <p>
                     <Link to="/events">Explore Events</Link>
